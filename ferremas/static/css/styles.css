@@ -1,0 +1,395 @@
+/* styles.css */
+
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+  background-color: #112233;
+  color: #fff;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative; /* Añadir posición relativa */
+}
+  
+  .logo img {
+    width: 90px;
+  }
+  
+  .nav {
+    text-align: center;
+  }
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  nav ul li {
+    display: inline;
+    margin-right: 20px;
+  }
+  
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .user-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Estilos de los productos */
+  
+  .products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .product {
+    width: 200px; /* Tamaño fijo para todos los contenedores de productos */
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center; /* Centra el contenido del producto */
+    margin-bottom: 20px;
+    display: flex; /* Utiliza flexbox para alinear los elementos verticalmente */
+    flex-direction: column; /* Alinea los elementos verticalmente */
+  }
+  
+  .image-product-container {
+    width: 100%;
+    height: 100px; /* Altura fija para la imagen */
+    overflow: hidden;
+  }
+  
+  .image-product-container img {
+    max-width: 100%; /* La imagen no excederá el tamaño del contenedor */
+    max-height: 100%; /* La imagen no excederá el tamaño del contenedor */
+  }
+  .product-name {
+    font-size: 16px;
+    margin-top: 0;
+  }
+  
+  .product-info {
+    text-align: left; /* Alinea el texto hacia la izquierda */
+    flex-grow: 1; /* Permite que el contenido ocupe el espacio restante */
+  }
+  
+  .add-to-cart-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px; /* Añade espacio arriba del botón */
+  }
+  
+  .add-to-cart-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Estilos del carrito de compras */
+  #cart {
+    background-color: #ffcc00;
+    color: #333;
+    padding: 5px 10px;
+    border-radius: 50%;
+    font-weight: bold;
+    margin-right: 20px;
+  }
+  
+  /* Estilos de los botones */
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Estilos del botón de agregar al carrito */
+  .addToCartBtn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: block; 
+    margin: 0 auto; 
+    text-align: center; 
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+  }
+  
+  
+  .addToCartBtn:hover {
+    background-color: #0041c4;
+  }
+  
+  /* styles.css */
+
+/* Estilos del botón de carrito */
+#cartBtn {
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+#cartBtn img {
+  width: 70px; 
+}
+
+#userBtn {
+  border: none;
+  background: none;
+  padding: 0;
+  position: relative; 
+}
+
+#userBtn img {
+  width: 40px; 
+}
+
+/* Estilos del menú desplegable */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: 120px; 
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  top: 100%; 
+  left: 0; 
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+#userBtn:hover #userDropdown {
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.user-actions:hover .dropdown-content {
+  display: block;
+  position: absolute; 
+  left: 0; 
+}
+
+.user-actions{
+  position: relative; 
+}
+
+#userBtn:hover #userDropdown {
+  display: block;
+}
+
+.image-container {
+  position: relative;
+  width: 100%; 
+  max-width: 100%; 
+  overflow: hidden; 
+  text-align: center; 
+}
+
+.image-container img {
+  width: 100%; 
+  max-width: 800px; 
+  height: auto; 
+  display: block; 
+  margin: 0 auto; 
+}
+
+.product img {
+  width: 100%;
+  height: 150px; 
+  object-fit: cover; 
+}
+
+.section-title {
+  text-align: center; 
+  margin-top: 20px; 
+  margin-bottom: 20px; 
+  font-size: 24px;
+  color: #333;
+}
+
+/* Estilos del formulario */
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #fff; 
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Para centrar el contenido del formulario */
+}
+
+h1 {
+  margin-bottom: 20px; /* Agrega espacio debajo del título */
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left; /* Alinea el texto del formulario a la izquierda */
+}
+
+/* Agrega espacio entre los elementos del formulario */
+.form-group:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+  width: calc(100% - 22px); /* Ajusta el ancho para compensar el borde */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+textarea {
+  resize: vertical; /* Permitir redimensionar verticalmente */
+}
+
+input[type="file"] {
+  padding: 5px;
+}
+
+/* Estilos de los botones */
+.button-container {
+  text-align: center; /* Centra horizontalmente los botones */
+}
+
+.button-container button {
+  margin: 0 10px; /* Agrega espacio entre los botones */
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.cancel-btn {
+  background-color: #dc3545;
+}
+
+.cancel-btn:hover {
+  background-color: #bd2130;
+}
+
+/* Estilos para el header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #333;
+  color: #fff;
+}
+
+.logo img {
+  height: 50px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.user-actions button {
+  margin-left: 10px;
+}
+
+/* Estilos para los productos */
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.product {
+  width: 200px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+}
+
+.addToCartBtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.addToCartBtn:hover {
+  background-color: #45a049;
+}
+
+.container-form {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 15vh; /* Altura igual al 100% del viewport */
+}

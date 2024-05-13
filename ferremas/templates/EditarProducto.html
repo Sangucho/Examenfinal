@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Producto</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>Editar Producto</h1>
+
+    <form>
+        <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        </div>
+        <div class="form-group">
+        <label for="categoria">Categoría:</label>
+        <input type="text" id="categoria" name="categoria" required>
+        </div>
+        <div class="form-group">
+        <label for="marca">Marca:</label>
+        <input type="text" id="marca" name="marca" required>
+        </div>
+        <div class="form-group">
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+        </div>
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="precio" required min="0">
+        </div>
+        <div class="form-group">
+        <label for="stock">Stock Disponible:</label>
+        <input type="number" id="stock" name="stock" required min="0">
+        </div>
+        <div class="form-group">
+        <label for="imagen">Imagen:</label>
+        <input type="file" id="imagen" name="imagen" accept="image/*">
+        </div>
+        <div class="button-container"> 
+            <button type="submit">Guardar Cambios</button>
+            <button type="button" id="delete-product-btn">Eliminar Producto</button>
+        </div>
+        <div class="button-container">
+            <a href="InicioBodeguero.html">
+            <button type="button" class="cancel-btn">Cancelar</button>
+        </div>
+    </form>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.querySelector('form');
+
+        form.addEventListener('submit', function(event) {
+            var nombre = document.getElementById('nombre').value.trim();
+            var categoria = document.getElementById('categoria').value.trim();
+            var marca = document.getElementById('marca').value.trim();
+            var descripcion = document.getElementById('descripcion').value.trim();
+            var precio = document.getElementById('precio').value.trim();
+            var stock = document.getElementById('stock').value.trim();
+
+            if (!nombre || !categoria || !marca || !descripcion || !precio || !stock) {
+                event.preventDefault(); // Evitar el envío del formulario si algún campo está vacío
+                alert('Por favor complete todos los campos.');
+            } else if (isNaN(parseFloat(precio)) || isNaN(parseInt(stock))) {
+                event.preventDefault(); // Evitar el envío del formulario si el precio o el stock no son números
+                alert('El precio y el stock deben ser números válidos.');
+            } else if (parseFloat(precio) <= 0 || parseInt(stock) < 0) {
+                event.preventDefault(); // Evitar el envío del formulario si el precio es negativo o cero, o si el stock es negativo
+                alert('El precio debe ser mayor que cero y el stock no puede ser negativo.');
+            }
+        });
+
+        var deleteButton = document.getElementById('delete-product-btn');
+        deleteButton.addEventListener('click', function() {
+            form.reset(); // Reiniciar el formulario
+            alert('El producto ha sido eliminado del formulario.');
+        });
+    });
+</script>
+    </script>
+</body>
+</html>
