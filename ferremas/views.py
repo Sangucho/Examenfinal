@@ -2,8 +2,17 @@ from django.shortcuts import render
 
 # Create your views here.
 
-def index(request):
-    return render(request, 'index.html')
+def inicio(request):
+    return render(request, 'inicio.html')
 
-def about(request):
-    return render(request, 'about.html')
+def inicioAdmin(request):
+    return render(request, 'inicioAdmin.html')
+
+def login(request):
+    return render(request, 'login.html')
+
+def register(request):
+    return render(request, 'register.html')
+
+def agregarproducto(request):
+    return render(request, 'AgregarProducto.html')
