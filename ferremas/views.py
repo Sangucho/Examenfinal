@@ -41,3 +41,6 @@ def agregarproducto(request):
 
 def editarproducto(request):
     return render(request, 'EditarProducto.html')
+
+def editarproducto(request):
+    return render(request, 'PerfilUsuario.html')

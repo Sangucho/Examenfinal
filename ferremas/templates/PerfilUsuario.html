@@ -134,11 +134,11 @@
 <body>
   <header>
     <div class="logo">
-      <img src="images/Ferremas_blanco.png" alt="Logo de Ferremas">
+      <img src="{% static 'images/Ferremas_blanco.png' %}" alt="Logo de Ferremas">
     </div>
     <nav>
       <ul>
-        <li><a href="inicio.html">Inicio</a></li>
+        <li><a href="{% url 'inicio' %}">Inicio</a></li>
         <li><a href="#productos">Productos</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
@@ -146,16 +146,16 @@
     <div class="user-actions">
       <div class="profile-dropdown">
         <button id="userBtn">
-          <img src="images/user_icon_149851-removebg-preview.png" alt="Icono de usuario">
+          <img src="{% static 'images/user_icon_149851-removebg-preview.png' %}" alt="Icono de usuario">
         </button>
         <div class="dropdown-content">
-          <a href="perfil.html">Perfil</a>
-          <a href="Inicio.html">Cerrar sesión</a>
+          <a href="{% url 'perfil' %}">Perfil</a>
+          <a href="{% url 'inicio' %}">Cerrar sesión</a>
         </div>
       </div>
       <div class="cart">
-        <a href="carrito.html">
-          <img src="images/carrito.png" alt="Carrito de compras">
+        <a href="{% url 'carrito' %}">
+          <img src="{% static 'images/carrito.png' %}" alt="Carrito de compras">
         </a>
       </div>
     </div>
@@ -181,6 +181,6 @@
     </div>
   </section>
 
-  <script src="script.js"></script>
+  <script src="{% static 'script.js' %}"></script>
 </body>
 </html>
