@@ -38,3 +38,6 @@ def register_view(request):
 
 def agregarproducto(request):
     return render(request, 'AgregarProducto.html')
+
+def editarproducto(request):
+    return render(request, 'EditarProducto.html')
