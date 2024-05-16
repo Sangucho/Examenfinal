@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.shortcuts import render
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -10,31 +11,32 @@ def inicio(request):
 def inicioAdmin(request):
     return render(request, 'inicioAdmin.html')
 
-def login_view(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            # Redirigir al usuario a una página de éxito
-            return redirect('inicio.html')  # Reemplaza 'index' con el nombre de tu vista de inicio
-        else:
-            # Mostrar un mensaje de error
-            return render(request, 'login.html', {'error_message': 'Credenciales inválidas.'})
-    else:
-        return render(request, 'login.html')
+def login(request):
+    return render(request, 'login.html')
 
-def register_view(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            # Redirigir al usuario a una página de éxito
-            return redirect('inicio.html')  # Reemplaza 'index' con el nombre de tu vista de inicio
+def registro(request):
+
+    if request.method == 'GET':
+        return render(request, 'registro.html',{
+        'form': UserCreationForm
+        })
     else:
-        form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
+        if request.POST ['password1'] == request.POST['password1']:
+            try:
+                user = User.objects.create_user(
+                    username=request.POST['username'],
+                    password=request.POST['password1'])
+                user.save()
+                return HttpResponse('Usuario creado')
+            except:
+                return render(request, 'registro.html', {
+                    'form': UserCreationForm,
+                    'error': 'Usuario ya existe'
+                })
+        return render(request, 'registro.html', {
+            'form': UserCreationForm,
+            'error': 'contraseñas no coinciden'
+        })
 
 def agregarproducto(request):
     return render(request, 'AgregarProducto.html')

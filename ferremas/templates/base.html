@@ -1,0 +1,88 @@
+<header>
+    <div class="logo">
+      <a href="{% url 'inicio' %}"></a>
+      <img src="{% static 'images/ferremasblanco.png' %}" alt="Logo de Ferremas">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="{% url 'inicio' %}">Inicio</a></li>
+        <li><a href="#productos">Productos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <div class="user-actions">
+      <button id="userBtn">
+        <img src="{% static 'images/user_icon_149851-removebg-preview.png' %}" alt="Icono de usuario">
+      </button>
+      <div id="userDropdown" class="dropdown-content">
+        <a href="{% url 'login' %}">Iniciar sesión</a>
+        <a href="{% url 'registro' %}">Registrarse</a>
+      </div>
+      <div class="cart">
+        <img src="{% static 'images/carrito.png' %}" alt="Carrito de compras" id="cartIcon">
+        <span id="cartCount">0</span>
+      </div>
+    </div>
+  </header>
+
+{% block content %}
+{% endblock %}
+
+<footer id="contacto" class="footer text-lg-start bg-body-tertiary text-muted">
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+      <div class="me-5 d-none d-lg-block">
+        <span>Síguenos en nuestras redes:</span>
+      </div>
+    </section>
+  </div>
+
+    <section class="section">
+      <div class="container text-center text-md-start mt-5">
+  
+        <div class="row mt-3">
+  
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+  
+            <h6 class="text-uppercase fw-bold mb-4">
+              <i class="fas fa-gem me-3"></i>Ferremas
+            </h6>
+            <p>
+              Ferremas, tu ferretería favorita.
+            </p>
+            <p>
+              Aquí encontrarás todo lo que necesitas.
+            </p>
+          </div>
+  
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+  
+            <h6 class="text-uppercase fw-bold mb-4">
+              Dónde encontrarnos 
+            </h6>
+            <p>
+              <a href="https://www.google.com/maps/@-33.3724682,-70.6695912,3a,75y,97.62h,90t/data=!3m6!1e1!3m4!1srSpjCn9MLhq69UrjcgWwJQ!2e0!7i16384!8i8192?entry=ttu" class="text-reset">Ubicación</a>
+            </p>
+          </div>
+  
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+  
+            <h6 class="text-uppercase fw-bold mb-4">Contactos</h6>
+            <p><i class="fas fa-home me-3"></i> Huechuraba 1232, Santiago, RM</p>
+            <p>
+              <i class="fas fa-envelope me-3"></i>
+              @Ferremas.cl
+            </p>
+            <p><i class="fas fa-phone me-3"></i> +569 45185452</p>
+            <p><i class="fas fa-print me-3"></i> +569 24500063</p>
+          </div>
+  
+        </div>
+  
+      </div>
+    </section>
+  
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2024 Compañía Ferremas:
+      <a class="text-reset fw-bold" href="https://youtu.be/dQw4w9WgXcQ">Ferremas.cl</a>
+    </div>
+  </footer>

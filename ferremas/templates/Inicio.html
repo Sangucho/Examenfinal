@@ -81,7 +81,7 @@
   <header>
     <div class="logo">
       <a href="{% url 'inicio' %}"></a>
-      <img src="{% static 'images/Ferremas blanco.png' %}" alt="Logo de Ferremas">
+      <img src="{% static 'images/ferremasblanco.png' %}" alt="Logo de Ferremas">
     </div>
     <nav>
       <ul>
@@ -96,7 +96,7 @@
       </button>
       <div id="userDropdown" class="dropdown-content">
         <a href="{% url 'login' %}">Iniciar sesión</a>
-        <a href="{% url 'register' %}">Registrarse</a>
+        <a href="{% url 'registro' %}">Registrarse</a>
       </div>
       <div class="cart">
         <img src="{% static 'images/carrito.png' %}" alt="Carrito de compras" id="cartIcon">
@@ -123,7 +123,7 @@
     <div class="product">
       <h3 class="product-name">{{ product.name }}</h3>
       <div class="image-product-container">
-        <img src="{% static 'images/Gancho' %}" alt="{{ product.name }}">
+        <img src="{% static 'images/Gancho.png' %}" alt="{{ product.name }}">
       </div>
       <div class="product-info">
         <p><strong>Precio:</strong> ${{ product.price }}</p>
