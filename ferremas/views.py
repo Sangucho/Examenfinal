@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.contrib.auth import login
+from django.db import IntegrityError
 
 # Create your views here.
 
@@ -10,9 +11,6 @@ def inicio(request):
 
 def inicioAdmin(request):
     return render(request, 'inicioAdmin.html')
-
-def login(request):
-    return render(request, 'login.html')
 
 def registro(request):
 
@@ -27,8 +25,9 @@ def registro(request):
                     username=request.POST['username'],
                     password=request.POST['password1'])
                 user.save()
-                return HttpResponse('Usuario creado')
-            except:
+                login(request, user)
+                return redirect('login')
+            except IntegrityError:
                 return render(request, 'registro.html', {
                     'form': UserCreationForm,
                     'error': 'Usuario ya existe'
@@ -37,6 +36,9 @@ def registro(request):
             'form': UserCreationForm,
             'error': 'contraseñas no coinciden'
         })
+
+def login(request):
+    return render(request, 'login.html')
 
 def agregarproducto(request):
     return render(request, 'AgregarProducto.html')

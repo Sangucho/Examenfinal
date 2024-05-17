@@ -1,4 +1,14 @@
-<header>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <title></title>
+</head>
+<body>
+  <header>
     <div class="logo">
       <a href="{% url 'inicio' %}"></a>
       <img src="{% static 'images/ferremasblanco.png' %}" alt="Logo de Ferremas">
@@ -86,3 +96,5 @@
       <a class="text-reset fw-bold" href="https://youtu.be/dQw4w9WgXcQ">Ferremas.cl</a>
     </div>
   </footer>
+</body>
+</html>

@@ -1,11 +1,20 @@
-<h1>Registro</h1>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/registro.css' %}">
+    <title>Registro</title>
+  </head>
+  <body>
+    
+    {{error}}
 
-{{error}}
-
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button>
-        Registrar
-    </button>
-</form>
+    <form method="POST">
+      <h1>Registro</h1>
+      {% csrf_token %} {{form.as_p}}
+      <button>Registrar</button>
+    </form>
+  </body>
+</html>
