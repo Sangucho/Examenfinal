@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.db import IntegrityError
 
 # Create your views here.
@@ -26,7 +26,7 @@ def registro(request):
                     password=request.POST['password1'])
                 user.save()
                 login(request, user)
-                return redirect('login')
+                return redirect('signin')
             except IntegrityError:
                 return render(request, 'registro.html', {
                     'form': UserCreationForm,
@@ -37,7 +37,7 @@ def registro(request):
             'error': 'contraseñas no coinciden'
         })
 
-def login(request):
+def singin(request):
     return render(request, 'login.html')
 
 def agregarproducto(request):
@@ -48,3 +48,7 @@ def editarproducto(request):
 
 def editarproducto(request):
     return render(request, 'PerfilUsuario.html')
+
+def cerrarSesion(request):
+    logout(request)
+    return redirect('inicio')
