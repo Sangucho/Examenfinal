@@ -1,74 +1,49 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agregar Producto</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
 
     <h1>Agregar Producto</h1>
 
-    <form>
+    <form method="post" enctype="multipart/form-data">
+        
+        {% csrf_token %}
         <div class="form-group">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
+            <label for="id_nombreart">Nombre:</label>
+            <input type="text" id="id_nombreart" name="nombreart">
         </div>
         <div class="form-group">
-        <label for="categoria">Categoría:</label>
-        <input type="text" id="categoria" name="categoria" required>
+            <label for="id_marca">Marca:</label>
+            <input type="text" id="id_marca" name="marca">
         </div>
         <div class="form-group">
-        <label for="marca">Marca:</label>
-        <input type="text" id="marca" name="marca" required>
+            <label for="id_descripcion">Descripción:</label>
+            <textarea id="id_descripcion" name="descripcion"></textarea>
         </div>
         <div class="form-group">
-        <label for="descripcion">Descripción:</label>
-        <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+            <label for="id_precio">Precio:</label>
+            <input type="number" id="id_precio" name="precio">
         </div>
         <div class="form-group">
-        <label for="precio">Precio:</label>
-        <input type="number" id="precio" name="precio" required min="0">
+            <label for="id_stock">Stock Disponible:</label>
+            <input type="number" id="id_stock" name="stock">
         </div>
         <div class="form-group">
-        <label for="stock">Stock Disponible:</label>
-        <input type="number" id="stock" name="stock" required min="0">
-        </div>
-        <div class="form-group">
-        <label for="imagen">Imagen:</label>
-        <input type="file" id="imagen" name="imagen" accept="image/*">
+            <label for="id_imagen">Imagen:</label>
+            <input type="file" id="id_imagen" name="imagen">
         </div>
         <div class="button-container"> 
             <button type="submit">Agregar Producto</button>
-            <button type="button" class="cancel-btn"><a href="InicioBodeguero.html">Cancelar</a></button>
+            <button type="button" class="cancel-btn"><a href="{% url 'inicio' %}">Cancelar</a></button>
         </div>
     </form>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var form = document.querySelector('form');
-    
-            form.addEventListener('submit', function(event) {
-                var nombre = document.getElementById('nombre').value.trim();
-                var categoria = document.getElementById('categoria').value.trim();
-                var marca = document.getElementById('marca').value.trim();
-                var descripcion = document.getElementById('descripcion').value.trim();
-                var precio = document.getElementById('precio').value.trim();
-                var stock = document.getElementById('stock').value.trim();
-    
-                if (!nombre || !categoria || !marca || !descripcion || !precio || !stock) {
-                    event.preventDefault(); // Evitar el envío del formulario si algún campo está vacío
-                    alert('Por favor complete todos los campos.');
-                } else if (isNaN(parseFloat(precio)) || isNaN(parseInt(stock))) {
-                    event.preventDefault(); // Evitar el envío del formulario si el precio o el stock no son números
-                    alert('El precio y el stock deben ser números válidos.');
-                } else if (parseFloat(precio) <= 0 || parseInt(stock) < 0) {
-                    event.preventDefault(); // Evitar el envío del formulario si el precio es negativo o cero, o si el stock es negativo
-                    alert('El precio debe ser mayor que cero y el stock no puede ser negativo.');
-                }
-            });
-        });
-    </script>
 </body>
 </html>
+

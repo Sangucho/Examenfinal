@@ -1,8 +1,10 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout
 from django.db import IntegrityError
+from . models import Producto
 
 # Create your views here.
 
@@ -41,6 +43,27 @@ def singin(request):
     return render(request, 'login.html')
 
 def agregarproducto(request):
+    if request.method == 'POST':
+        # Procesar los datos del formulario de agregar producto
+        nombreart = request.POST.get('nombreart')
+        marca = request.POST.get('marca')
+        descripcion = request.POST.get('descripcion')
+        precio = request.POST.get('precio')
+        stock = request.POST.get('stock')
+        imagen = request.FILES.get('imagen')
+
+        # Aquí puedes guardar los datos en la base de datos
+        Producto.objects.create(
+            nombreart=nombreart,
+            marca=marca,
+            descripcion=descripcion,
+            precio=precio,
+            stock=stock,
+            imagen=imagen,
+        )
+        messages.success(request, f'El artículo {nombreart} se añadió con éxito')
+        return render(request, 'AgregarProducto.html')
+
     return render(request, 'AgregarProducto.html')
 
 def editarproducto(request):
