@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agregar Producto</title>
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <title>Agregar Producto</title>
 </head>
 <body>
 
@@ -39,7 +39,7 @@
             <input type="file" id="id_imagen" name="imagen">
         </div>
         <div class="button-container"> 
-            <button type="submit">Agregar Producto</button>
+            <button type="submit" <a href="{% url 'inicio' %}">Agregar Producto</button>
             <button type="button" class="cancel-btn"><a href="{% url 'inicio' %}">Cancelar</a></button>
         </div>
     </form>

@@ -9,26 +9,34 @@ from . models import Producto
 # Create your views here.
 
 def inicio(request):
-    return render(request, 'inicio.html')
+    # Obtener todos los productos
+    productos = Producto.objects.all()
+    if request.user.is_authenticated and request.user.username.endswith('@ferremas.com'):
+        mostrar_boton_agregar = True
+    else:
+        mostrar_boton_agregar = False
 
-def inicioAdmin(request):
-    return render(request, 'inicioAdmin.html')
+    return render(request, 'inicio.html', {'productos': productos, 'mostrar_boton_agregar': mostrar_boton_agregar})
 
 def registro(request):
-
     if request.method == 'GET':
-        return render(request, 'registro.html',{
-        'form': UserCreationForm
-        })
+        return render(request, 'registro.html', {'form': UserCreationForm})
     else:
-        if request.POST ['password1'] == request.POST['password2']:
+        if request.POST.get('password1') == request.POST.get('password2'):
             try:
-                user = User.objects.create_user(
-                    username=request.POST['username'],
-                    password=request.POST['password1'])
-                user.save()
-                login(request, user)
-                return redirect('inicio')
+                username = request.POST.get('username')
+                if username.endswith('@ferremas.com'):
+                    user = User.objects.create_user(
+                        username=username,
+                        password=request.POST.get('password1'))
+                    user.save()
+                    login(request, user)
+                    return redirect('inicio')
+                else:
+                    return render(request, 'registro.html', {
+                        'form': UserCreationForm,
+                        'error': 'El nombre de usuario debe terminar con "@ferremas.com"'
+                    })
             except IntegrityError:
                 return render(request, 'registro.html', {
                     'form': UserCreationForm,
@@ -36,19 +44,20 @@ def registro(request):
                 })
         return render(request, 'registro.html', {
             'form': UserCreationForm,
-            'error': 'contraseñas no coinciden'
+            'error': 'Las contraseñas no coinciden'
         })
 
 def signin(request):
     if request.method == 'GET':
-        return render(request, 'signin.html',{'form':AuthenticationForm})
+        return render(request, 'signin.html', {'form': AuthenticationForm})
     else:
-        user = authenticate(request, username=request.POST['username'], password = request.POST['password'])
+        user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
         if user is None:
-            return render (request, 'signin.html', {'form':AuthenticationForm, 'error':'usuario o contraseña incorrecto'})
+            return render(request, 'signin.html', {'form': AuthenticationForm, 'error': 'Usuario o contraseña incorrecto'})
         else:
             login(request, user)
             return redirect('inicio')
+
         
 def agregarproducto(request):
     if request.method == 'POST':
@@ -73,6 +82,7 @@ def agregarproducto(request):
         return render(request, 'AgregarProducto.html')
 
     return render(request, 'AgregarProducto.html')
+
 
 def editarproducto(request):
     return render(request, 'EditarProducto.html')

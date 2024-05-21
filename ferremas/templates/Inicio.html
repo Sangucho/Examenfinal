@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    {% load static %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ferremas - Tu ferretería de confianza</title>
+    
+    <title>Ferremama</title>
   </head>
-
   <body>
     {% block content %}
+    <link rel="stylesheet" href="{% static 'css/carta.css' %}" />
     <br />
     <section class="carousel">
       <div class="image-container">
@@ -24,32 +24,24 @@
     </section>
 
     <h1 class="section-title">Nuestros Productos</h1>
-
-    <section id="productos" class="products">
-      {% for product in products %}
-      <div class="product">
-        <h3 class="product-name">{{ product.name }}</h3>
-        <div class="image-product-container">
-          <img
-            src="{% static 'images/Gancho.png' %}"
-            alt="{{ product.name }}"
-          />
-        </div>
-        <div class="product-info">
-          <p><strong>Precio:</strong> ${{ product.price }}</p>
-          <p><strong>Stock Disponible:</strong> {{ product.stock }} unidades</p>
-        </div>
-        <button
-          class="add-to-cart-btn"
-          onclick="addToCart('{{ product.name }}', {{ product.price }})"
-        >
-          Agregar al carrito
-        </button>
-      </div>
-      {% empty %}
-      <p>No hay productos disponibles.</p>
-      {% endfor %}
-    </section>
+    <div class="product-card">
+      <section id="productos" class="products">
+          {% if productos %}
+          <ul>
+              {% for producto in productos %}
+              <li>
+                  <span class="product-name">{{ producto.nombreart }}</span> - Precio: ${{ producto.precio }}
+                  {% if producto.imagen %}
+                  <img src="{{ producto.imagen.url }}" alt="{{ producto.nombreart }}" class="product-image" />
+                  {% endif %}
+              </li>
+              {% endfor %}
+          </ul>
+          {% else %}
+          <p>No hay productos disponibles.</p>
+          {% endif %}
+      </section>
+  </div>
     {% endblock %}
   </body>
 </html>
