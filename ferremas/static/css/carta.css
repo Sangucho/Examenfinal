@@ -1,88 +1,127 @@
-/*IMAGENES MENU*/
+/* IMAGENES MENU */
 .hero-section {
-    margin-bottom: 5%;
-    border-radius: 20px;
-  }
-  html {
-      height: 50%;
-      font-size: 15px;
-      font-family: 'Poppins', sans-serif;
-    }
-    body {
-      height: 100%;
-    }
-    .hero-section {
-      display: flex;
-      min-height: 100%;
-      align-items: center;
-      justify-content: center;
-    }
-    .card-container {
-      display: flex;
-      width: 100%;
-      justify-content: center;
-    }
-    .card {
-      padding: 0% ;
-      position: relative;
-      list-style: none;
-      width:220px;
-      transition: .3s ease;
-    }
-    div.card {
-      border-radius: 10%;
-      background:none;
-    }
-    .card:before {
-      content: "";
-      display: block;
-      padding-bottom: 150%;
-      width: 100%;
-    }
-    .card-background {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      left: 0;
-      top: 0;
-      border-radius: 20px;
-      background-size: 350px;
-      background-position: center;
-      filter: brightness(.9) saturate(1) contrast(1);
-      transform-origin: bottom;
-      transform: scale(1) translateZ(0);
-      transition: .3s ease;
-    }
-    .card:hover .card-background {
-      transform: scale(1.15) translateZ(0);
-      background-size: 270px;
-    }
-    .card-container:hover .card:not(:hover) {
-      transform: scale(.9);
-    }
-    .card-container:hover > .card:not(:hover) .card-background,
-    .card-container:hover > .card:not(:hover) .card-category {
-      filter: brightness(.5) saturate(0) contrast(1.2) blur(20px);
-    }
-    .content {
-      top: 50%;
-      left: 0;
-      padding: 15px;
-      position: absolute;
-    }
-    .card-category {
-      color: #fff;
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 5px;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
-    .card-heading {
-      color: #fff;
-      font-size: 20px;
-      line-height: 3;
-      text-shadow: 2px 2px 20px rgba(0, 0, 0, .2);
-    }
-  /*FIN IMAGENES MENU*/
+  margin-bottom: 5%;
+  border-radius: 20px;
+}
+
+
+body {
+  height: 100%;
+}
+
+.hero-section {
+  display: flex;
+  min-height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap; /* Permite que las tarjetas se envuelvan en múltiples líneas */
+  gap: 20px; /* Añade espacio entre las tarjetas */
+}
+
+.card {
+  padding: 0;
+  position: relative;
+  list-style: none;
+  width: 220px;
+  transition: .3s ease;
+  background: #fff; /* Fondo blanco para la tarjeta */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  text-align: center; /* Centra el contenido de la tarjeta */
+  overflow: hidden; /* Esconde cualquier contenido que sobresalga de la tarjeta */
+}
+
+.card:before {
+  content: "";
+  display: block;
+  padding-bottom: 150%;
+  width: 100%;
+}
+
+.card-background {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(.9) saturate(1) contrast(1);
+  transition: .3s ease;
+}
+
+.card:hover .card-background {
+  transform: scale(1.1);
+}
+
+.card-container:hover .card:not(:hover) {
+  transform: scale(.95);
+}
+
+.card-container:hover > .card:not(:hover) .card-background,
+.card-container:hover > .card:not(:hover) .card-category {
+  filter: brightness(.7) saturate(0.7) contrast(1.2);
+}
+
+.content {
+  top: 50%;
+  left: 0;
+  padding: 15px;
+  position: absolute;
+  transform: translateY(-50%);
+}
+
+.card-category {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 5px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.card-heading {
+  color: #fff;
+  font-size: 20px;
+  line-height: 1.5;
+  text-shadow: 2px 2px 20px rgba(0, 0, 0, .2);
+}
+
+/* Estilos adicionales para los productos */
+.section-title {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.product-image {
+  max-width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+.buy-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+.buy-button:hover {
+  background-color: #0056b3;
+}
+
+.card h2, .card p, .card span {
+  margin: 10px 0;
+}
 

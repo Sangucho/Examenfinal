@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
@@ -8,11 +9,9 @@
   <title>Agregar Producto</title>
 </head>
 <body>
-
-    <h1>Agregar Producto</h1>
-
+    {% block content %}
     <form method="post" enctype="multipart/form-data">
-        
+        <h1>Agregar Producto</h1>
         {% csrf_token %}
         <div class="form-group">
             <label for="id_nombreart">Nombre:</label>
@@ -39,11 +38,11 @@
             <input type="file" id="id_imagen" name="imagen">
         </div>
         <div class="button-container"> 
-            <button type="submit" <a href="{% url 'inicio' %}">Agregar Producto</button>
+            <button type="submit" <a href="{% url 'inicio' %}">Agregar</a></button>
             <button type="button" class="cancel-btn"><a href="{% url 'inicio' %}">Cancelar</a></button>
         </div>
     </form>
-
+    {% endblock %}
 </body>
 </html>
 
