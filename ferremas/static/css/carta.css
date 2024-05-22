@@ -20,7 +20,6 @@ body {
   display: flex;
   width: 100%;
   justify-content: center;
-  flex-wrap: wrap; /* Permite que las tarjetas se envuelvan en múltiples líneas */
   gap: 20px; /* Añade espacio entre las tarjetas */
 }
 
