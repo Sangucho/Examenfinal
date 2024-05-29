@@ -5,6 +5,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from . models import Producto
+from django.shortcuts import render
+from django.http import HttpResponse
+import requests
+
 
 # Create your views here.
 
@@ -93,3 +97,32 @@ def editarproducto(request):
 def cerrarSesion(request):
     logout(request)
     return redirect('inicio')
+ 
+ # Monto a cobrar en centavos ($1.00)
+
+from .fakepay import fakepay_process_payment  # Ajusta la importación según la ubicación real
+
+fakepay_api_key = 'your_fakepay_api_key'
+fakepay_amount = 100  # Ajusta el monto según sea necesario
+
+@csrf_exempt  # Solo si estás probando sin protección CSRF, no uses esto en producción
+def process_payment(request):
+    if request.method == 'POST':
+        # Datos del formulario
+        card_number = request.POST['card_number']
+        expiry_date = request.POST['expiry_date']
+        cvv = request.POST['cvv']
+
+        # Procesamiento del pago utilizando la pasarela de pago FakePay (ejemplo)
+        response = fakepay_process_payment(fakepay_api_key, fakepay_amount, card_number, expiry_date, cvv)
+
+        # Verificación de la respuesta de la pasarela de pago
+        if response['success']:
+            # El pago fue exitoso
+            return HttpResponse("¡El pago se ha realizado correctamente!")
+        else:
+            # El pago falló
+            return HttpResponse("Lo siento, ha ocurrido un error durante el procesamiento del pago: " + response['error'])
+    
+    # Si la solicitud no es POST, renderiza el formulario de pago
+    return render(request, 'payment_form.html')

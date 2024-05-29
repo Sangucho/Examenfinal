@@ -11,6 +11,7 @@ urlpatterns = [
     path('editarproducto/',views.editarproducto, name='editarproducto'),
     path('perfilusuario/',views.editarproducto, name='perfilusuario'),
     path('cerrarSesion/', views.cerrarSesion, name='cerrarSesion'),
+     path('process_payment/', views.process_payment, name='process_payment'),
 ]
 
 if settings.DEBUG:
