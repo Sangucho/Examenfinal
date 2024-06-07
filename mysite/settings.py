@@ -132,3 +132,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+BANCENTRAL_API_USER = 'hectordl.2004@gmail.com'
+BANCENTRAL_API_PASSWORD = 'yVrLNoXV4i7bzv'
+BANCENTRAL_SERIES_URL = 'https://si3.bcentral.cl/SieteRestWS/SieteRestWS.ashx'
