@@ -138,3 +138,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 BANCENTRAL_API_USER = 'hectordl.2004@gmail.com'
 BANCENTRAL_API_PASSWORD = 'yVrLNoXV4i7bzv'
 BANCENTRAL_SERIES_URL = 'https://si3.bcentral.cl/SieteRestWS/SieteRestWS.ashx'
+
+PAYPAL_CLIENT_ID = 'AbvDVoiGQHJEH0mXsDzI4yLLvfPg1dBLdct8zoUrmnUvc_qdEmphXf958ZzbIAsDk5Ol-JtQP-GGuYF7'
+PAYPAL_CLIENT_SECRET = 'EKEPYAb6L7xIU0aEnAVTwHfo_mgHN841bdQ7u6LmZKwjdmQVJch4Ew-27ynmFGDpFd6_NNs0-QtpnPyS'
+PAYPAL_MODE = 'sandbox'  # usa 'live' para producción

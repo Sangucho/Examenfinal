@@ -16,3 +16,13 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('payment/create/', views.payment_create, name='payment_create'),
+    path('payment/execute/', views.payment_execute, name='payment_execute'),
+    path('payment/cancel/', views.payment_cancel, name='payment_cancel'),
+    path('payment/error/', views.payment_error, name='payment_error'),
+]

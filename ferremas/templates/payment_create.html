@@ -1,0 +1,4 @@
+<form method="post" action="{% url 'payment_create' %}">
+    {% csrf_token %}
+    <button type="submit">Pagar con PayPal</button>
+</form>

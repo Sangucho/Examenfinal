@@ -126,3 +126,78 @@ def process_payment(request):
     
     # Si la solicitud no es POST, renderiza el formulario de pago
     return render(request, 'payment_form.html')
+
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.conf import settings
+import paypalrestsdk
+import logging
+
+logger = logging.getLogger(__name__)
+
+# Configurar PayPal SDK
+paypalrestsdk.configure({
+    "mode": settings.PAYPAL_MODE,
+    "client_id": settings.PAYPAL_CLIENT_ID,
+    "client_secret": settings.PAYPAL_CLIENT_SECRET
+})
+
+def payment_create(request):
+    if request.method == "POST":
+        payment = paypalrestsdk.Payment({
+            "intent": "sale",
+            "payer": {
+                "payment_method": "paypal"
+            },
+            "redirect_urls": {
+                "return_url": request.build_absolute_uri(reverse('payment_execute')),
+                "cancel_url": request.build_absolute_uri(reverse('payment_cancel'))
+            },
+            "transactions": [{
+                "item_list": {
+                    "items": [{
+                        "name": "Nombre Item",
+                        "sku": "item",
+                        "price": "10.000",
+                        "currency": "CLP",
+                        "quantity": 1
+                    }]
+                },
+                "amount": {
+                    "total": "10.000",
+                    "currency": "CLP"
+                },
+                "description": "This is the payment transaction description."
+            }]
+        })
+
+        if payment.create():
+            for link in payment.links:
+                if link.rel == "approval_url":
+                    approval_url = str(link.href)
+                    return redirect(approval_url)
+            logger.error("No approval_url found")
+            return redirect('payment_error')
+        else:
+            logger.error(payment.error)
+            return redirect('payment_error')
+    else:
+        return render(request, 'payment_create.html')
+
+def payment_execute(request):
+    payment_id = request.GET.get('paymentId')
+    payer_id = request.GET.get('PayerID')
+
+    payment = paypalrestsdk.Payment.find(payment_id)
+
+    if payment.execute({"payer_id": payer_id}):
+        return render(request, 'payment_success.html')
+    else:
+        logger.error(payment.error)
+        return redirect('payment_error')
+
+def payment_cancel(request):
+    return render(request, 'payment_cancel.html')
+
+def payment_error(request):
+    return render(request, 'payment_error.html')
