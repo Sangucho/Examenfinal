@@ -6,8 +6,6 @@ from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from . models import Producto
 from django.shortcuts import render
-from django.http import HttpResponse
-import requests
 
 
 # Create your views here.
@@ -94,110 +92,21 @@ def editarproducto(request):
 def editarproducto(request):
     return render(request, 'PerfilUsuario.html')
 
+
+def carrito(request):
+    # Obtener los productos en el carrito (sustituye esto con tu lógica real)
+    productos_en_carrito = [
+        {'nombre': 'Producto 1', 'cantidad': 2},
+        {'nombre': 'Producto 2', 'cantidad': 1},
+        {'nombre': 'Producto 3', 'cantidad': 3},
+    ]
+    context = {'productos_en_carrito': productos_en_carrito}
+    return render(request, 'Carrito.html', context)
+
+
 def cerrarSesion(request):
     logout(request)
     return redirect('inicio')
- 
- # Monto a cobrar en centavos ($1.00)
 
-from .fakepay import fakepay_process_payment  # Ajusta la importación según la ubicación real
-
-fakepay_api_key = 'your_fakepay_api_key'
-fakepay_amount = 100  # Ajusta el monto según sea necesario
-
-@csrf_exempt  # Solo si estás probando sin protección CSRF, no uses esto en producción
-def process_payment(request):
-    if request.method == 'POST':
-        # Datos del formulario
-        card_number = request.POST['card_number']
-        expiry_date = request.POST['expiry_date']
-        cvv = request.POST['cvv']
-
-        # Procesamiento del pago utilizando la pasarela de pago FakePay (ejemplo)
-        response = fakepay_process_payment(fakepay_api_key, fakepay_amount, card_number, expiry_date, cvv)
-
-        # Verificación de la respuesta de la pasarela de pago
-        if response['success']:
-            # El pago fue exitoso
-            return HttpResponse("¡El pago se ha realizado correctamente!")
-        else:
-            # El pago falló
-            return HttpResponse("Lo siento, ha ocurrido un error durante el procesamiento del pago: " + response['error'])
-    
-    # Si la solicitud no es POST, renderiza el formulario de pago
-    return render(request, 'payment_form.html')
-
-from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.conf import settings
-import paypalrestsdk
-import logging
-
-logger = logging.getLogger(__name__)
-
-# Configurar PayPal SDK
-paypalrestsdk.configure({
-    "mode": settings.PAYPAL_MODE,
-    "client_id": settings.PAYPAL_CLIENT_ID,
-    "client_secret": settings.PAYPAL_CLIENT_SECRET
-})
-
-def payment_create(request):
-    if request.method == "POST":
-        payment = paypalrestsdk.Payment({
-            "intent": "sale",
-            "payer": {
-                "payment_method": "paypal"
-            },
-            "redirect_urls": {
-                "return_url": request.build_absolute_uri(reverse('payment_execute')),
-                "cancel_url": request.build_absolute_uri(reverse('payment_cancel'))
-            },
-            "transactions": [{
-                "item_list": {
-                    "items": [{
-                        "name": "Nombre Item",
-                        "sku": "item",
-                        "price": "10.000",
-                        "currency": "CLP",
-                        "quantity": 1
-                    }]
-                },
-                "amount": {
-                    "total": "10.000",
-                    "currency": "CLP"
-                },
-                "description": "This is the payment transaction description."
-            }]
-        })
-
-        if payment.create():
-            for link in payment.links:
-                if link.rel == "approval_url":
-                    approval_url = str(link.href)
-                    return redirect(approval_url)
-            logger.error("No approval_url found")
-            return redirect('payment_error')
-        else:
-            logger.error(payment.error)
-            return redirect('payment_error')
-    else:
-        return render(request, 'payment_create.html')
-
-def payment_execute(request):
-    payment_id = request.GET.get('paymentId')
-    payer_id = request.GET.get('PayerID')
-
-    payment = paypalrestsdk.Payment.find(payment_id)
-
-    if payment.execute({"payer_id": payer_id}):
-        return render(request, 'payment_success.html')
-    else:
-        logger.error(payment.error)
-        return redirect('payment_error')
-
-def payment_cancel(request):
-    return render(request, 'payment_cancel.html')
-
-def payment_error(request):
-    return render(request, 'payment_error.html')
+def webpay(request):
+    return render(request, 'webpay.html')

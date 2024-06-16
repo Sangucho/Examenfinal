@@ -1,52 +1,55 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %}
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% block css %}
     <link rel="stylesheet" href="{% static 'css/carta.css' %}" />
     {% endblock css %}
     <title>Ferremas</title>
-</head>
-<body>
+  </head>
+  <body>
     {% block content %}
     <h1 class="section-title">¡Bienvenido a Ferremas {{ user }}!</h1>
     <section class="carousel">
-        <div class="image-container">
-            <div class="slick-carousel">
-                <div><img src="{% static 'images/1.png' %}" alt="Imagen 1" /></div>
-                <div><img src="{% static 'images/2.png' %}" alt="Imagen 2" /></div>
-                <div><img src="{% static 'images/3.png' %}" alt="Imagen 3" /></div>
-                <div><img src="{% static 'images/4.png' %}" alt="Imagen 4" /></div>
-            </div>
+      <div class="image-container">
+        <div class="slick-carousel">
+          <div><img src="{% static 'images/1.png' %}" alt="Imagen 1" /></div>
+          <div><img src="{% static 'images/2.png' %}" alt="Imagen 2" /></div>
+          <div><img src="{% static 'images/3.png' %}" alt="Imagen 3" /></div>
+          <div><img src="{% static 'images/4.png' %}" alt="Imagen 4" /></div>
         </div>
+      </div>
     </section>
 
     <h1 class="section-title">Nuestros Productos</h1>
     <section class="section-item">
-        {% if productos %}
-        <div class="container">
-            {% for producto in productos %}
-            <div class="card">
-                <h2>{{ producto.nombreart }}</h2>
-                <p>{{ producto.marca }}</p>
-                <p>{{ producto.descripcion }}</p>
-                <span>Precio: ${{ producto.precio }}</span>
-                <div class="pic">
-                    {% if producto.imagen %}
-                    <img src="{{ producto.imagen.url }}" alt="{{ producto.nombreart }}" class="product-image" />
-                    {% endif %}
-                </div>
-                <button class="buy-button">Comprar</button>
-            </div>
-            {% endfor %}
+      {% if productos %}
+      <div class="container">
+        {% for producto in productos %}
+        <div class="card">
+          <h2>{{ producto.nombreart }}</h2>
+          <p>{{ producto.marca }}</p>
+          <p>{{ producto.descripcion }}</p>
+          <span>Precio: ${{ producto.precio }}</span>
+          <div class="pic">
+            {% if producto.imagen %}
+            <img
+              src="{{ producto.imagen.url }}"
+              alt="{{ producto.nombreart }}"
+              class="product-image"
+            />
+            {% endif %}
+          </div>
+          <button class="buy-button">Comprar</button>
         </div>
-        {% else %}
-        <p>No hay productos disponibles.</p>
-        {% endif %}
+        {% endfor %}
+      </div>
+      {% else %}
+      <p>No hay productos disponibles.</p>
+      {% endif %}
     </section>
     {% endblock %}
-</body>
+  </body>
 </html>

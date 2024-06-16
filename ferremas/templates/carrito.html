@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'css/carta.css' %}" />
+    {% endblock css %}
+    <title>Ferremas - Carrito de Compras</title>
+</head>
+<body>
+    {% block content %}
+    <h1 class="section-title">Carrito de Compras</h1>
+    <section class="section-item">
+        {% if productos_en_carrito %}
+        <div class="container">
+            <div class="card">
+                <h2>Artículos en el Carrito</h2>
+                <ul>
+                    {% for item in productos_en_carrito %}
+                    <li>{{ item.nombre }} - Cantidad: {{ item.cantidad }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <a href="{% url 'webpay' %}" class="btn btn-success">Pagar</a> <!-- Enlace al view de Webpay -->
+        {% else %}
+        <p>No hay artículos en el carrito.</p>
+        {% endif %}
+    </section>
+    {% endblock %}
+</body>
+</html>
+
