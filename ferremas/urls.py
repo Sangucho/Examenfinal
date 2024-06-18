@@ -12,7 +12,6 @@ urlpatterns = [
     path('perfilusuario/',views.editarproducto, name='perfilusuario'),
     path('cerrarSesion/', views.cerrarSesion, name='cerrarSesion'),
     path('carrito/', views.carrito, name='carrito'),
-    path('webpay/', views.webpay, name='webpay'),
 ]
 
 if settings.DEBUG:

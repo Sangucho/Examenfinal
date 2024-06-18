@@ -107,6 +107,3 @@ def carrito(request):
 def cerrarSesion(request):
     logout(request)
     return redirect('inicio')
-
-def webpay(request):
-    return render(request, 'webpay.html')
