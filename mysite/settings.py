@@ -52,6 +52,15 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 
+# PAYPAL_CLIENT_ID = 'AYHHDMiRyqkqnJOh7CoPIAfDLR55b-MwToSv8OHHB7gWieMkytbc14k5Jw8lrfdVnKj5ybv8Yrtp2JMy'
+
+# PAYPAL_CLIENT_SECRET = 'EDYOQ5Pdj9zFiH3SW8uQZEoZ-ioJdXEYxprXHK07MWFfkEo0TIzAZ9_w3rAnitSo0TRTJpMhbWRKi4Qe'
+
+PAYPAL_MODE ='sandbox'
+
+PAYPAL_CLIENT_ID = 'AQFJc6DNF8CmuJkdHVue8nny231lStI1wu5OqWiPJWY_cSiCS5OPsGW-9FIpeCD1rNxkGBpUhOVinNf8'
+PAYPAL_CLIENT_SECRET = 'EKdFCDKGFBF7aW-aoEjaVCZRnK5Dl2wjU7ukJP9dyUvx9nC_sOqOWE0hV_ZqLl9eirkerOyyKQKxVHyx'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

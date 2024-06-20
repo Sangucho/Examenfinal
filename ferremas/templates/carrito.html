@@ -1,34 +1,127 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %}
 
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ferremas - Carrito de Compras</title>
-</head>
-<body>
+  </head>
+  <body>
     {% block content %}
-    <h1 class="section-title">Carrito de Compras</h1>
-    <section class="section-item">
-        {% if productos_en_carrito %}
-        <div class="container">
-            <div class="card">
-                <h2>Artículos en el Carrito</h2>
-                <ul>
-                    {% for item in productos_en_carrito %}
-                    <li>{{ item.nombre }} - Cantidad: {{ item.cantidad }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <a href="{% url 'webpay' %}" class="btn btn-success">Pagar</a> <!-- Enlace al view de Webpay -->
-        {% else %}
-        <p>No hay artículos en el carrito.</p>
-        {% endif %}
-    </section>
-    {% endblock %}
-</body>
-</html>
+    <div class="container">
+      <form id="form" method="POST" action="{% url 'create_payment' %}">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col">
+            <table class="table">
+              <thead id="head-form">
+                <tr>
+                  <th style="color: white" scope="col">#</th>
+                  <th style="color: white" scope="col">Producto</th>
+                  <th style="color: white" scope="col">Cantidad</th>
+                  <th style="color: white" scope="col">Precio</th>
+                  <th style="color: white" scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="lista-form">
+                {% for productoca in productosca %}
+                <tr>
+                  <td style="color: white">{{ productoca.idproducto }}</td>
+                  <td style="color: white">{{ productoca.nombreart }}</td>
+                  <td style="color: white">1</td>
+                  <td style="color: white">{{ productoca.precio }}</td>
+                  <td>
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modal-{{ productoca.idproducto }}-delete"
+                    >
+                      BORRAR
+                    </button>
 
+                    <div
+                      class="modal fade"
+                      id="modal-{{ productoca.idproducto }}-delete"
+                      tabindex="-1"
+                      aria-labelledby="modal-{{ productoca.idproducto }}-deleteLabel"
+                      aria-hidden="true"
+                    >
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Eliminar Producto</h4>
+                            <button
+                              type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <div class="modal-body">
+                            <p>
+                              Al seleccionar esta opción se borrará el producto
+                              del carrito. ¿Desea eliminar el producto?
+                            </p>
+                            <button
+                              type="button"
+                              class="btn btn-primary"
+                              onclick="borrar_producto('{{ productoca.idproducto }}')"
+                            >
+                              CONFIRMAR
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-danger"
+                              data-dismiss="modal"
+                            >
+                              CANCELAR
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="col">
+            <div class="card" style="width: 18rem">
+              <img
+                src="{% static 'images/carrito.png' %}"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">¡Listos para comprar!</h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Sub total ${{ total }}</li>
+                <li class="list-group-item">
+                  Total ${{ total }}
+                  <input
+                    id="txt-total"
+                    name="cantidad"
+                    type="hidden"
+                    value="1500"
+                  />
+                </li>
+              </ul>
+              <div class="card-body">
+                <button type="submit" class="btn btn-success">Pagar</button>
+                <a href="{% url 'inicio' %}" class="btn btn-primary"
+                  >Seguir comprando</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" id="diccionario" name="diccionario" />
+      </form>
+    </div>
+    {% endblock %}
+  </body>
+</html>

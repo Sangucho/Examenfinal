@@ -1,129 +1,127 @@
-from django.contrib import messages
+from django.shortcuts import render
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
-from django.contrib.auth import login, logout, authenticate
-from django.db import IntegrityError
-from . models import Producto
+from .forms import PrductoForm
+import requests
+from .integracionapi import add_producto, find_all, delete_by_id, update_producto, add_producto_carrito, find_all_carrito, preciocarrito, recuperar_carrito, delete_carrito_by_id, add_algo, delete_algo, find_all_anonyy, limpiar_carrito
+import random
 from transbank.error.transbank_error import TransbankError
 from transbank.webpay.webpay_plus.transaction import Transaction
-
-from .lib.integracionapi import add_producto, find_all, delete_by_id, update_producto, add_producto_carrito, find_all_carrito, preciocarrito, recuperar_carrito, delete_carrito_by_id, add_algo, delete_algo, find_all_anonyy, limpiar_carrito
 
 from transbank.common.options import WebpayOptions
 from transbank.common.integration_commerce_codes import IntegrationCommerceCodes
 from transbank.common.integration_api_keys import IntegrationApiKeys
 import json
-import random
+
 from django.views.decorators.csrf import csrf_exempt
 import datetime as dt
+from django.contrib import messages
 
 
-# Create your views here.
+
+
+
+
+
+
+
 
 def apimiindicador():
     url = 'https://mindicador.cl/api'
     response = requests.get(url).json()
     return response
 
-def inicio(request):
-    # Obtener todos los productos
-    productos = Producto.objects.all()
-    if request.user.is_authenticated and request.user.username.endswith('@ferremas.com'):
-        mostrar_boton_agregar = True
-    else:
-        mostrar_boton_agregar = False
 
-    return render(request, 'inicio.html', {'productos': productos, 'mostrar_boton_agregar': mostrar_boton_agregar})
 
-def registro(request):
-    if request.method == 'GET':
-        return render(request, 'registro.html', {'form': UserCreationForm})
-    else:
-        if request.POST.get('password1') == request.POST.get('password2'):
-            try:
-                username = request.POST.get('username')
-                if username.endswith('@ferremas.com'):
-                    user = User.objects.create_user(
-                        username=username,
-                        password=request.POST.get('password1'))
-                    user.save()
-                    login(request, user)
-                    return redirect('inicio')
-                else:
-                    return render(request, 'registro.html', {
-                        'form': UserCreationForm,
-                        'error': 'El nombre de usuario debe terminar con "@ferremas.com"'
-                    })
-            except IntegrityError:
-                return render(request, 'registro.html', {
-                    'form': UserCreationForm,
-                    'error': 'Usuario ya existe'
-                })
-        return render(request, 'registro.html', {
-            'form': UserCreationForm,
-            'error': 'Las contraseñas no coinciden'
-        })
 
-def signin(request):
-    if request.method == 'GET':
-        return render(request, 'signin.html', {'form': AuthenticationForm})
-    else:
-        user = authenticate(request, username=request.POST.get('username'), password=request.POST.get('password'))
-        if user is None:
-            return render(request, 'signin.html', {'form': AuthenticationForm, 'error': 'Usuario o contraseña incorrecto'})
-        else:
-            login(request, user)
-            return redirect('inicio')
+def home(request):
+    response = apimiindicador()
+    return render(request,'inicio.html', {'response': response})
 
+def carrito(request):
+    productosca = find_all_carrito()
+
+    precios = preciocarrito()
+    total =  sum(precios)
+    response = apimiindicador()
+    
+    return render(request, "carritocompras.html", {'productosca': productosca, 'total':total, 'response': response})
+
+def login(request):
+    return render(request, "login.html")
+
+def contacto(request):
+    return render(request, "contacto.html")
+
+def productos(request):
+    return render(request, "productos.html")
+
+def error(request):
+    return render(request, "transbank/error.html")
+
+def rechazo(request):
+    return render(request, "transbank/rechazada.html")
+
+def verproductos(request):
+     
+    productos = find_all()
+    form = PrductoForm(request.POST or None)
+    
+
+    return render(request, 'verproductos.html', {'productos': productos, 'form': form})
+
+
+def catalogo(request):
+     
+    productos = find_all()
+    response = apimiindicador()
+    
+
+    return render(request, 'catalogo.html', {'productos': productos, 'response': response})
+
+
+def eliminar_producto(request):
+    if request.method == "GET":
+        delete_by_id(request.GET['id'])
+        productos = find_all()
+    return render(request, 'verproductos.html', {'productos': productos})
+
+
+def editar_producto(request):
+    if request.method == "POST":
+        update_producto(request)
+        productos = find_all()        
+    return render(request, 'verproductos.html', {'productos': productos}) 
+
+
+
+
+def add_product_view(request):
+    mensaje = ''
+    form = PrductoForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
         
-def agregarproducto(request):
-    if request.method == 'POST':
-        # Procesar los datos del formulario de agregar producto
-        nombreart = request.POST.get('nombreart')
-        marca = request.POST.get('marca')
-        descripcion = request.POST.get('descripcion')
-        precio = request.POST.get('precio')
-        stock = request.POST.get('stock')
-        imagen = request.FILES.get('imagen')
 
-        # Aquí puedes guardar los datos en la base de datos
-        Producto.objects.create(
-            nombreart=nombreart,
-            marca=marca,
-            descripcion=descripcion,
-            precio=precio,
-            stock=stock,
-            imagen=imagen,
-        )
-        messages.success(request, f'El artículo {nombreart} se añadió con éxito')
-        return render(request, 'AgregarProducto.html')
+        hola = add_producto(request)
+        print(hola)
+        if hola == 200:
+            messages.success(request, 'Producto agregado correctamente')
+        elif hola == 204:
+            messages.error(request, 'El producto ya se encuentra, por favor seleccione otro o edite el stock.')
+        else:
+            mensaje = 'ERROR desconocido'
 
-    return render(request, 'AgregarProducto.html')
+    
+    return render(request, 'agregarproducto.html', {
+        'form': form 
+    
 
+})
 
-def editarproducto(request):
-    return render(request, 'EditarProducto.html')
-
-def editarproducto(request):
-    return render(request, 'PerfilUsuario.html')
 
 
 """Carrito metodos"""
-def carrito(request):
-    try:
-        # productosca = find_all_carrito()
 
-        # precios = preciocarrito()
-        # total =  sum(precios)
-        # response = apimiindicador()
 
-        return render(request, "carrito.html")
-    except Exception as e:
-        print("error: " + str(e))
-        return HttpResponse(f"Error al cargar el carrito: {str(e)}", status=500)
-    
 def agregar_producto_al_carrito(request):
     if request.method == "POST":
         add_producto_carrito(request)
@@ -158,17 +156,6 @@ def eliminar_del_carrito(request):
         total =  sum(precios)
         response = apimiindicador()
     return render(request, 'carritocompras.html', {'productosca': productosca, 'total':total, 'response': response})
-
-
-def cerrarSesion(request):
-    logout(request)
-    return redirect('inicio')
-
-def error(request):
-    return render(request, "transbank/error.html")
-
-def rechazo(request):
-    return render(request, "transbank/rechazada.html")
 
 def webpay_plus_create(request):
     print("Webpay Plus Transaction.create")
@@ -248,3 +235,4 @@ def webpay_plus_commit(request):
     #TRANSACCIÓN CANCELADA
         delete_algo()              
         return render(request, 'transbank/error.html')
+
