@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'css/listado_api.css' %}">
+    {% endblock css %}
+    <title>Ferremas - Productos</title>
+</head>
+
+<body>
+    {% block content %}
+    <h1 class="titulo">Productos Listados (API)</h1>
+    <div class="container" id="container_productos"></div>
+    {% endblock %}
+    {% block js %}
+    <script src="{% static 'js/listado_api.js' %}"></script>
+    {% endblock js %}
+</body>
+
+</html>

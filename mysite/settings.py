@@ -47,8 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ferremas',
     'mathfilters',
+    'ferremas',
     'rest_framework',
 ]
 

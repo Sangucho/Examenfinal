@@ -19,7 +19,7 @@ import random
 from django.views.decorators.csrf import csrf_exempt
 import datetime as dt
 
-
+import requests
 # Create your views here.
 
 def apimiindicador():
@@ -248,3 +248,18 @@ def webpay_plus_commit(request):
     #TRANSACCIÓN CANCELADA
         delete_algo()              
         return render(request, 'transbank/error.html')
+
+
+
+#API
+
+#PAGINA API
+def productos_api(request):
+    return render(request, 'productos_api.html')
+
+from rest_framework import viewsets
+from .serializers import ProductoSerializer
+
+class ProductoViewSet(viewsets.ModelViewSet):
+    queryset = Producto.objects.all()
+    serializer_class = ProductoSerializer
