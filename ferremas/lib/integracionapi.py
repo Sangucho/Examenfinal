@@ -93,7 +93,7 @@ def update_producto(request):
 
 
 
-# ferremas/lib/integracionapi.py
+# zapacity/lib/integracionapi.py
 
 import requests
 
